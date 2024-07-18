@@ -1,0 +1,6 @@
+Django>=3.0,<4.0
+psycopg2-binary
+django-allauth
+graphene-django
+django-filter
+django-graphql-jwt
