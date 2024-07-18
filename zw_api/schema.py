@@ -1,4 +1,4 @@
-# myproject/schema.py
+# zw_api/schema.py
 import graphene
 import users.schema
 
