@@ -1,6 +1,8 @@
 # ZW API
 
-Welcome to the ZW API project! This project aims to provide the API for the ZW platform, a comprehensive CRM (Customer Relationship Management) and customer portal specifically designed for recycling companies.
+Welcome to the **ZW API** project!
+
+This project aims to provide the API for the ZW platform, a comprehensive CRM (Customer Relationship Management) and customer portal specifically designed for recycling companies.
 
 ### Introduction
 
