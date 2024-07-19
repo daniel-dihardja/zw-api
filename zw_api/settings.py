@@ -16,7 +16,6 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,12 +35,13 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
+    # "django.contrib.staticfiles",
     "users",
     "django.contrib.sites",  # Required for allauth
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "django.contrib.staticfiles",
     "graphene_django",
     "django_filters",
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",  # Add this line for refresh tokens
@@ -56,7 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "allauth.account.middleware.AccountMiddleware",  # Add this line
+    # "allauth.account.middleware.AccountMiddleware",  # Add this line
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -78,14 +77,10 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "allauth.account.context_processors.account",  # Add this line
-                "allauth.socialaccount.context_processors.socialaccount",  # Add this line
             ],
         },
     },
 ]
-
-WSGI_APPLICATION = "zw_api.wsgi.application"
 
 
 SITE_ID = 1
@@ -96,6 +91,12 @@ GRAPHENE = {
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
     ],
 }
+
+# The absolute path to the directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# URL to use when referring to static files located in STATIC_ROOT.
+STATIC_URL = "/static/"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -110,7 +111,6 @@ DATABASES = {
         "PORT": 5432,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -130,7 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -141,26 +140,3 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = "static/"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Add these settings for Django Allauth
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "optional"
-
-# JWT settings
-GRAPHQL_JWT = {
-    "JWT_VERIFY_EXPIRATION": True,
-    "JWT_EXPIRATION_DELTA": timedelta(minutes=5),
-    "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=7),
-}
