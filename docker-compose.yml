@@ -20,5 +20,21 @@ services:
     depends_on:
       - db
 
+  migrate:
+    build: .
+    command: python manage.py migrate
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  flush:
+    build: .
+    command: python manage.py flush --no-input
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
 volumes:
   postgres_data:
