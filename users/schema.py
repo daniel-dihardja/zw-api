@@ -20,9 +20,12 @@ class CreateUser(graphene.Mutation):
 
     def mutate(self, info, username, email, password):
         try:
-            user = get_user_model()(username=username, email=email)
-            user.set_password(password)
-            user.save()
+            user = get_user_model().objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                is_active=False,  # Set user as unconfirmed
+            )
             return CreateUser(user=user)
         except Exception as e:
             raise Exception(f"Error creating user: {str(e)}")
