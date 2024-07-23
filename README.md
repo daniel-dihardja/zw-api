@@ -31,3 +31,17 @@ One of the primary challenges these new recycling companies face is the lack of 
 - **PostgreSQL**: A powerful, open-source object-relational database system with a strong reputation for reliability, feature robustness, and performance.
 
 - **Docker**: A platform for developing, shipping, and running applications in containers, ensuring consistency across multiple development and production environments.
+
+## Commands
+
+#### 
+
+**Start Server**
+```
+python manage.py runserver 0.0.0.0:8000
+```
+
+**Run User Tests**
+```
+python manage.py test users.tests.test_users
+```
