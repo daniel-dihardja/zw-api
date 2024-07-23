@@ -12,7 +12,7 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: tail -f /dev/null
     volumes:
       - .:/app
     ports:
@@ -31,14 +31,6 @@ services:
   flush:
     build: .
     command: python manage.py flush --no-input
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-
-  test:
-    build: .
-    command: pytest
     volumes:
       - .:/app
     depends_on:
