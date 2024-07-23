@@ -4,5 +4,3 @@ django-allauth==0.50.0
 graphene-django
 django-filter
 django-graphql-jwt
-pytest
-pytest-django
