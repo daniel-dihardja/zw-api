@@ -1,10 +1,14 @@
 # users/tests/test_users.py
 import json
 from graphene_django.utils.testing import GraphQLTestCase
+from django.test import Client
 from users.schema import schema
 
 class UserTests(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
+
+    def setUp(self):
+        self.client = Client()
 
     def test_create_user(self):
         mutation = '''
@@ -24,26 +28,16 @@ class UserTests(GraphQLTestCase):
             "password": "password123"
         }
 
-        response = self.query(
-            mutation,
-            variables=variables
+        response = self.client.post(
+            '/graphql/',  # Ensure this matches your actual GraphQL endpoint
+            data=json.dumps({'query': mutation, 'variables': variables}),
+            content_type='application/json'
         )
 
         # Debug response
         print("Status Code:", response.status_code)
         print("Headers:", response.headers)
         print("Content:", response.content)
-
-        # Handle redirect
-        if response.status_code == 301:
-            location = response.headers['Location']
-            response = self.client.post(
-                location,
-                data=json.dumps({'query': mutation, 'variables': variables}),
-                content_type='application/json'
-            )
-            print("Redirect Status Code:", response.status_code)
-            print("Redirect Content:", response.content)
 
         # Check response
         self.assertEqual(response.status_code, 200)
