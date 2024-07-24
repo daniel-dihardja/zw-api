@@ -1,12 +1,9 @@
 # users/tests/test_users.py
 import json
-from graphene_django.utils.testing import GraphQLTestCase
-from django.test import Client
+from django.test import TestCase, Client
 from users.schema import schema
 
-class UserTests(GraphQLTestCase):
-    GRAPHQL_SCHEMA = schema
-
+class UserTests(TestCase):
     def setUp(self):
         self.client = Client()
 
@@ -34,12 +31,6 @@ class UserTests(GraphQLTestCase):
             content_type='application/json'
         )
 
-        # Debug response
-        print("Status Code:", response.status_code)
-        print("Headers:", response.headers)
-        print("Content:", response.content)
-
-        # Check response
         self.assertEqual(response.status_code, 200)
         content = json.loads(response.content)
         self.assertNotIn('errors', content)
