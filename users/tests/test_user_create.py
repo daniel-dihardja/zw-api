@@ -1,9 +1,10 @@
-# users/tests/test_users.py
 import json
 from django.test import TestCase, Client
-from users.schema import schema
+from django.contrib.auth import get_user_model
 
-class UserTests(TestCase):
+User = get_user_model()
+
+class TestUserCreate(TestCase):
     def setUp(self):
         self.client = Client()
 
@@ -15,6 +16,7 @@ class UserTests(TestCase):
                     id
                     username
                     email
+                    isActive
                 }
             }
         }
@@ -36,3 +38,10 @@ class UserTests(TestCase):
         self.assertNotIn('errors', content)
         self.assertEqual(content['data']['createUser']['user']['username'], 'testuser')
         self.assertEqual(content['data']['createUser']['user']['email'], 'testuser@example.com')
+        self.assertFalse(content['data']['createUser']['user']['isActive'])
+        
+        # Fetch the user from the database for additional verification
+        user = User.objects.get(username='testuser')
+        
+        # Check the activation status
+        self.assertFalse(user.is_active)
